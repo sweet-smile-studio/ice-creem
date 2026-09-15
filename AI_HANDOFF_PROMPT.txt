@@ -1,0 +1,259 @@
+You are continuing the Sweet Smile interactive 3D ice-cream website/game project.
+
+PROJECT GOAL
+Build a premium, warm, cinematic, interactive 3D ice-cream product-builder experience for the Sweet Smile brand.
+This must feel like a small game, not a normal ecommerce page.
+
+CORE USER EXPERIENCE
+The visitor should actually construct an ice cream:
+1. Choose Cone or Cup.
+2. Choose up to 3 scoops.
+3. Choose toppings.
+4. The character physically performs the selected action.
+5. The selected 3D ingredient visibly moves into the product.
+6. The user can remove an ingredient.
+7. The user can throw an unwanted item into a visible trash bin.
+8. The user can reset and start again.
+9. The user can finish the creation and add it to the bag/order.
+
+NON-NEGOTIABLE CHARACTER REQUIREMENT
+The female shop assistant is the user's custom character.
+She must not be treated as a decorative static image.
+She must be a real interactive 3D character in the final production version.
+
+SOURCE-OF-TRUTH CHARACTER REFERENCES
+Use these three supplied files as the visual source of truth:
+- assets/character_front.png
+- assets/character_side.png
+- assets/character_back.png
+
+The three views define:
+- face
+- hair
+- hat
+- uniform
+- apron
+- body proportions
+- shoes
+- front/side/back silhouette
+- overall visual identity
+
+The character should remain visually consistent across all angles.
+Do not redesign her into a generic avatar.
+
+FINAL CHARACTER PIPELINE
+Create one game-ready rigged 3D character, preferably exported as GLB/GLTF.
+Required:
+- clean topology suitable for browser use
+- skeleton/rig
+- facial/head consistency
+- long hair
+- hat
+- apron
+- hands and fingers sufficient for object interaction
+- attachment points for spoon and ingredients
+- animation clips
+
+REQUIRED ANIMATIONS
+Create reusable modular animations, not one video per recipe:
+- Idle
+- Look/Attention
+- Reach
+- Grab
+- Scoop
+- Place
+- Sprinkle
+- Throw Away
+- Happy/Success
+- Reset
+
+The game logic must reuse these animations for every flavor.
+For example:
+Pistachio -> same Scoop animation + pistachio object.
+Chocolate -> same Scoop animation + chocolate object.
+Strawberry -> same Scoop animation + strawberry object.
+
+Do NOT create separate full videos for every possible combination.
+
+3D SCENE
+Use the supplied background:
+assets/shop_background.jpg
+
+The environment should visually integrate the 3D character and 3D ice-cream objects with the shop.
+Use warm premium lighting, realistic shadows, soft depth, subtle reflections and cinematic composition.
+
+3D PRODUCT OBJECTS
+Create separate reusable assets for:
+- cone
+- cup
+- pistachio scoop
+- chocolate scoop
+- strawberry scoop
+- vanilla scoop
+- caramel scoop
+- nuts
+- sprinkles
+- chocolate bits
+- cherry
+- spoon
+- trash bin
+
+GAME LOGIC
+Maintain a single source of truth for the order:
+{
+  base: "cone" | "cup",
+  scoops: [],
+  toppings: [],
+  price: number
+}
+
+Rules:
+- maximum 3 scoops
+- toppings are optional
+- duplicate toppings may be disallowed unless intentionally enabled
+- every add/remove action updates the 3D product
+- every important action triggers a character animation
+- the character should never visually perform an action unrelated to the user's current selection
+
+INTERACTION EXAMPLE
+User clicks Pistachio:
+1. UI highlights Pistachio.
+2. Character reaches for the scoop.
+3. Character grabs/scoops pistachio.
+4. Pistachio scoop object follows the hand.
+5. Character moves the scoop over the cone/cup.
+6. Scoop is placed.
+7. The final scoop remains attached to the ice cream.
+8. Character returns to idle.
+
+REMOVE EXAMPLE
+User clicks an existing scoop:
+1. Selected scoop highlights.
+2. Character removes it or performs a discard action.
+3. The scoop leaves the product.
+4. It can move toward the trash bin.
+5. State updates.
+
+TRASH EXAMPLE
+If the user chooses to discard:
+1. Character picks up the selected object.
+2. Character carries it toward the trash.
+3. Object falls into the bin.
+4. State updates.
+5. Character returns to idle.
+
+VISUAL DIRECTION
+Warm premium minimal.
+Editorial + playful + cinematic.
+Avoid childish cartoon styling.
+Avoid generic SaaS styling.
+Use depth, soft shadows, subtle glass/metal details, warm cream materials, restrained gold accents and olive/berry accents where appropriate.
+
+TYPOGRAPHY DIRECTION
+Cormorant Garamond for editorial display headings.
+Inter or Neue Montreal style for interface text.
+Do not overuse decorative typography.
+
+RESPONSIVE REQUIREMENT
+Desktop and mobile must both work.
+On mobile:
+- builder controls should remain easy to tap
+- 3D scene should remain the visual focus
+- camera controls must be simple
+- no tiny buttons
+- no horizontal overflow
+
+PERFORMANCE REQUIREMENT
+Target a smooth browser experience.
+Use:
+- optimized GLB
+- compressed textures
+- reasonable polygon counts
+- lazy loading for heavy assets
+- mobile-friendly shadows
+- limited real-time lights
+- avoid unnecessary post-processing
+
+TECHNICAL DIRECTION
+The current prototype uses HTML/CSS/JavaScript + Three.js.
+Continue with this architecture unless there is a strong technical reason to migrate.
+
+Keep the game logic independent from WordPress.
+The final interactive builder should be embeddable inside a WordPress page/section later.
+
+WORDPRESS INTEGRATION
+Do NOT rebuild the whole game inside Elementor.
+Build the interactive game as an independent web module first.
+Then integrate it into WordPress using the cleanest production method available, such as:
+- a custom plugin/module
+- iframe only if technically necessary
+- or a dedicated front-end bundle embedded into a WordPress template
+
+The final WordPress site should still be maintainable.
+
+CURRENT FILES
+index.html
+style.css
+script.js
+assets/character_front.png
+assets/character_side.png
+assets/character_back.png
+assets/shop_background.jpg
+
+CURRENT PROTOTYPE STATUS
+The current version contains:
+- 3D browser scene
+- procedural character blockout
+- cone/cup
+- five flavors
+- maximum three scoops
+- four toppings
+- price calculation
+- recipe list
+- reset
+- finish
+- character action states
+- supplied reference images
+- supplied background
+
+IMPORTANT LIMITATION
+The procedural character in the current prototype is only a blockout.
+The next major task is to create/import the final rigged GLB character based on the three supplied references.
+
+DO NOT LOSE THE EXISTING WORK
+Improve the existing prototype instead of throwing it away.
+Preserve:
+- builder state
+- UI structure
+- responsive behavior
+- product-building logic
+- character action API
+- supplied references
+- supplied background
+
+DEFINITION OF DONE
+The project is considered complete only when:
+- the final character is a true 3D rigged character
+- the character can interact with objects
+- the character performs the correct action for each user choice
+- up to three scoops work
+- multiple flavors work through reusable animation logic
+- toppings work
+- removal works
+- trash/discard works
+- reset works
+- finish works
+- the 3D scene looks polished
+- desktop/mobile work
+- performance is acceptable
+- the game can be embedded into WordPress
+- no flavor combination requires a separate full video
+
+WORK STYLE
+Do not replace the user's character with a generic model.
+Do not simplify the project back into a static website.
+Do not use a single linear video as the main interaction system.
+Do not create one animation/video for every recipe combination.
+Build reusable systems and modular assets.
+
+When a better technical solution is found, preserve the same user experience and visual identity.
